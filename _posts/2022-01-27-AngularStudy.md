@@ -1,4 +1,11 @@
-# ANGULARSTUDY
+---
+layout: post
+title: "Angular学习笔记"
+date: 2021-01-27 
+description: "Angular is an application design framework and development platform for creating efficient and sophisticated single-page apps."
+tag: Angular
+---   
+<!--# ANGULARSTUDY-->
 <strong>Angular核心概念</strong><br>
 <i>第一，模块</i><br>
 - 不同于Node.js或ES6中的模块的模块，NG的模块就是一个抽象的容器，用于对组件进行分组<br>
@@ -22,20 +29,7 @@
 <i>第五，服务和依赖注入 --抽象和重点</i><br>
 - Service:服务，Angular认为：组件是与用户交互的一种对象，其中的内容都是应该与用户操作有关系的；而与用户无关的内容都应该剥离出去，放在“服务对象”中，为组件服务，例如：日志记录、计时统计、数据服务器的访问...
 <br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+
 ##  1. <a name=''></a>创建一个自定义组件
 ###  1.1. <a name='Classbook.component.ts'></a>创建组件Class ，自定义一个文件如`book.component.ts`
 ```typescript
@@ -242,7 +236,7 @@
 - 在模板视图中使用管道
 - 可以使用CLI命令行`ng g pipe 管道名`<br>
 <div align="center" >
-<img src=./image/Common_pipe.png width="350" height="350"/>
+<img src=../images/Common_pipe.png width="350" height="350"/>
 </div>
 
 ```typescript
@@ -337,7 +331,7 @@
     </tbody>
 </table>
 ```
-## 3.2. <a name='br-1'></a>创建对象的两种方式<br>
+##  4. <a name='br-1'></a>创建对象的两种方式<br>
 - 方式1：手工创建式:自己创建 `let car = new Car()`
 - 方式2：依赖注入式：无需自己new，只需要声明依赖`ng g service 服务名`
 - 创建服务对象的步骤：
@@ -383,6 +377,23 @@
         }
     }
 ```
-## TypeScript Study
+##  5. <a name='TypeScriptStudy'></a>TypeScript Study
 - TypeScript 是 JavaScript 的一个超集，支持 ECMAScript 6,由微软开发的自由和开源的编程语言。TypeScript 设计目标是开发大型应用，它可以编译成纯 JavaScript，编译出来的 JavaScript 可以运行在任何浏览器上
 - TypeScript是强类型语言，JavaScript是弱类型语言
+    - 强类型语言的特点：变量、形参、函数都要声明类型
+    - Ts对属性和方法成员定义三种访问修饰符：public、private、protected<br>
+    - 访问修饰符的特殊用法
+    ```typescript
+        //方法一：
+        class Emp{
+            private age:number
+            construcor(age){
+                this.age = age
+            }
+        }
+        //方法二：
+        class Emp{
+            construcor(ptivate age:number){
+            }
+        }
+    ```
