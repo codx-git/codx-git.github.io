@@ -377,23 +377,66 @@ tag: Angular
         }
     }
 ```
-##  5. <a name='TypeScriptStudy'></a>TypeScript Study
-- TypeScript 是 JavaScript 的一个超集，支持 ECMAScript 6,由微软开发的自由和开源的编程语言。TypeScript 设计目标是开发大型应用，它可以编译成纯 JavaScript，编译出来的 JavaScript 可以运行在任何浏览器上
-- TypeScript是强类型语言，JavaScript是弱类型语言
-    - 强类型语言的特点：变量、形参、函数都要声明类型
-    - Ts对属性和方法成员定义三种访问修饰符：public、private、protected<br>
-    - 访问修饰符的特殊用法
+前端体系有哪些发起异步请求的工具？各自的利弊？
+
+|工具名   | 本质  | 优劣势 |
+|:---:|:---:|:---:|
+|原生XHR| let xhr = new XMLHttpResquest()| 浏览器支持的原生技术：基于回调方式处理响应；|
+|JQuery.ajax()|也是XHR，只是进一步的封装而已|比原生要简单；基于回调方式处理响应|
+|Axios|也是XHR，只是进一步的封装而已|比原生简单；基于Promise处理响应；可以排队、并发|
+|NGHttpClient|也是XHR，只是进一步的封装而已|比原生要简单；基于“观察者模式（23种设计模式之一）”处理响应；可以排队、并发、撤销|
+|Fetch|不再是XHR，是W3C提出的新技术，有望取代XHR|比XHR从根本上更加先进；天然基于Promise|
+|||
+
+### Angular官方提供的服务对象——HttpClient
+- HttpClient服务：是Angular提供的用于发起异步XHR请求的对象
+- 使用步骤：
+    - 1，在主模块中导入HttpClientModule模块
+    - 2，在组件中声明依赖于HttpClient服务对象，就会被自动注入
+    - 3，调用HttpClient实例实现异步请求`this.http.get(url).subscribe((res) => {} )`
     ```typescript
-        //方法一：
-        class Emp{
-            private age:number
-            construcor(age){
-                this.age = age
-            }
-        }
-        //方法二：
-        class Emp{
-            construcor(ptivate age:number){
-            }
-        }
+    //component.ts页面内容
+    export class bookcomponent { 
+    productList=[]
+    private pno:number=0
+    constructor(private http:HttpClient){}
+    public loadMore():void{
+        console.log("sdfs")
+        this.pno++;
+        let url:string="https://www.taobao.com/"+this.pno
+        this.http.get(url).subscribe((res:any)=>{
+            //console.log('get data')
+            //console.log(res.data)
+            this.productList=res.data
+        })
+    }
+    //HTML页面内容
+    <table border="1" [width]="500">
+        <tbody>
+            <tr *ngIf="productList.length==0">
+                <td colspan="5">暂时没有数据</td>
+            </tr>
+            <tr *ngFor="let p of productList">
+                <td align="center">p.id</td>
+                <td align="center">p.name</td>
+                <td align="center">p.img</td>
+                <td align="center">p.price</td>
+                <td align="center">
+                    <button>删除</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <button (click)="loadMore()">加载下一页数据</button>
     ```
+    - 4，组件的生命周期钩子函数
+        - Angular中的组件的声明周期钩子函数调用顺序：
+            - constructor()：组件对象被创建先调用构造函数
+            - ngOnChanges()：组件绑定的属性值发生改变
+            - <b>ngOnInit()</b>：组件初始化完毕-等同于Vue.js的mounted
+            - ngDoCheck()：开发者自定义变更检测。
+            - ngAfterContentInit()：在组件内容初始化后调用。
+            - ngAfterContentChecked()：在组件内容每次检查后调用。
+            - ngAfterViewInit()：在组件视图初始化后调用。
+            - ngAfterViewChecked()：在组件视图每次检查后调用。
+            - ngOnDestroy()：在指令销毁前调用。
