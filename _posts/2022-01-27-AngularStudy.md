@@ -517,7 +517,8 @@ tag: Angular
             - 路由词典中可以指定一个匹配任意地址‘**’，注意该地址用于整个路由词典的最后一个
     - 路由跳转/导航：从一个路由地址跳转到另一个；实现方案：
         - 方法一：使用模板跳转方法<br>
-            `<any routerLink="/ucenter">`;注意：用于任意标签上，跳转地址应该以/开头，防止以相对方式跳转
+            `<any routerLink="/ucenter">`;注意：用于任意标签上，跳转地址应该以/开头，防止以相对方式跳转<br>
+
     ```typescript
         //在app.module.ts文件中声明路由词典--路由地址和路由组件的对应集合
         let routes=[
@@ -556,7 +557,8 @@ tag: Angular
 
     ```
     - 方式二：使用脚本方法
-        - 注意：Router类是RouterModule提供的一个服务类，声明依赖即可使用
+        - 注意：Router类是RouterModule提供的一个服务类，声明依赖即可使用<br>
+
     ```typescript
         //在.html文件中
         <button (click)="jump()">跳转页面</button>
@@ -610,6 +612,7 @@ tag: Angular
 - 路由守卫：
     - Angular提供了“路由守卫（Guard）”来实现访问路由组件前的检查功能：如果检查通过（return true）就放行，如果不通过（return false）不放行 
     - `ng g guard GuardName`
+
 ```typescript
     //创建Login.guard.ts文件
     @Injectable({ //路由守卫是“可注入”服务对象
